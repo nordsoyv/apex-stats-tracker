@@ -1,72 +1,73 @@
 export type Map = 'Worlds Edge' | 'Kings Canyon';
 
-export enum Legend {
-  Bangalore = 'Bangalore',
-  Bloodhound = 'Bloodhound',
-  Caustic = 'Caustic',
-  Crypto = 'Crypto',
-  Gibraltar = 'Gibraltar',
-  Lifeline = 'Lifeline',
-  Loba = 'Loba',
-  Mirage = 'Mirage',
-  Octane = 'Octane',
-  Pathfinder = 'Pathfinder',
-  Rampart = 'Rampart',
-  Revenant = 'Revenant',
-  Wattson = 'Wattson',
-  Wraith = 'Wraith',
-}
+export const legends = new Set([
+  'Bangalore',
+  'Bloodhound',
+  'Caustic',
+  'Crypto',
+  'Gibraltar',
+  'Lifeline',
+  'Loba',
+  'Mirage',
+  'Octane',
+  'Pathfinder',
+  'Rampart',
+  'Revenant',
+  'Wattson',
+  'Wraith',
+]);
 
-export enum KCLocation {
-  Airbase = 'Airbase',
-  Artillery = 'Artillery',
-  Bunker = 'Bunker',
-  Capacitor = 'Capacitor',
-  Containment = 'Containment',
-  Gauntlet = 'Gauntlet',
-  HydroDam = 'Hydro dam',
-  Labs = 'Labs',
-  MapRoom = 'Map room',
-  Market = 'Market',
-  Repulsor = 'Repulsor',
-  Runoff = 'Runoff',
-  Salvage = 'Salvage',
-  SlumLakes = 'Slum lakes',
-  Swamps = 'Swamps',
-  TheCage = 'The cage',
-  ThePit = 'The pit',
-  TheRig = 'The rig',
-  Watchtower = 'Watchtower',
-  WaterTreatment = 'Water treatment',
-}
-export enum WELocation {
-  BloodhoundsTrials = 'Bloodhounds Trials',
-  Countdown = 'Countdown',
-  Epicenter = 'Epicenter',
-  Fragment = 'Fragment',
-  Geyser = 'Geyser',
-  Harvester = 'Harvester',
-  HillValley = 'HillValley',
-  LaunchSite = 'Launch site',
-  LavaCity = 'Lava city',
-  LavaFissure = 'Lava fissure',
-  MiningPass = 'Mining pass',
-  Overlook = 'Overlook',
-  RainTunnel = 'RainTunnel',
-  Refinery = 'Refinery',
-  Skyhook = 'Skyhook',
-  SortingFactory = 'Sorting factory',
-  SpringsEnd = 'Springs end',
-  Staging = 'Staging',
-  SurveyCamp = 'Survey camp',
-  TheBridge = 'The bridge',
-  TheDome = 'The dome',
-  TheTree = 'The tree',
-  ThermalStation = 'Thermal station',
-  Trainyard = 'Trainyard',
-}
+export const KCLocations = new Set([
+  'Airbase',
+  'Artillery',
+  'Bunker',
+  'Capacitor',
+  'Containment',
+  'Gauntlet',
+  'Hydro dam',
+  'Labs',
+  'Map room',
+  'Market',
+  'Repulsor',
+  'Runoff',
+  'Salvage',
+  'Slum lakes',
+  'Swamps',
+  'The cage',
+  'The pit',
+  'The rig',
+  'Watchtower',
+  'Water treatment',
+]);
 
-export type Location = WELocation | KCLocation;
+export const WELocations = new Set([
+  'Bloodhounds Trials',
+  'Countdown',
+  'Epicenter',
+  'Fragment',
+  'Geyser',
+  'Harvester',
+  'HillValley',
+  'Launch site',
+  'Lava city',
+  'Lava fissure',
+  'Mining pass',
+  'Overlook',
+  'RainTunnel',
+  'Refinery',
+  'Skyhook',
+  'Sorting factory',
+  'Springs end',
+  'Staging',
+  'Survey camp',
+  'The bridge',
+  'The dome',
+  'The tree',
+  'Thermal station',
+  'Trainyard',
+]);
+
+export const Locations = new Set([...WELocations, ...KCLocations]);
 export type Season = 'Season 6';
 export type Split = number;
 
@@ -76,8 +77,8 @@ export type MatchRecord = {
   season: Season;
   split: Split;
   map: Map;
-  legend: Legend;
-  location: Location;
+  legend: string;
+  location: string;
   teamSize: number;
   placement: number;
   kills: number;

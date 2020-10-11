@@ -1,18 +1,17 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
+import React, { useEffect } from 'react';
 import { sendGetAllDataRequest } from '../ipc/client';
 import { Stats } from '../components/Stats';
+import { AddMatch } from '../components/AddMatch';
+import {Grid} from "@material-ui/core";
 
 export function App() {
-  const sendMessage = () => {
+  useEffect(() => {
     sendGetAllDataRequest();
-  };
+  },[] );
   return (
-    <div>
+    <Grid container spacing={3}>
+      <AddMatch />
       <Stats />
-      <Button variant="contained" color="primary" onClick={sendMessage}>
-        Hello World
-      </Button>
-    </div>
+    </Grid>
   );
 }
