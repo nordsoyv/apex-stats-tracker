@@ -1,13 +1,18 @@
 import React from 'react';
-import { sendPingMessage } from '../ipc/client';
+import { Button } from '@material-ui/core';
+import {sendGetAllDataRequest, sendPingRequest} from '../ipc/client';
+import { Stats } from '../components/Stats';
 
 export function App() {
   const sendMessage = () => {
-    sendPingMessage('Hello from client');
+    sendGetAllDataRequest();
   };
   return (
     <div>
-      <button onClick={sendMessage}>CLICK</button>
+      <Stats></Stats>
+      <Button variant="contained" color="primary" onClick={sendMessage}>
+        Hello World
+      </Button>
     </div>
   );
 }

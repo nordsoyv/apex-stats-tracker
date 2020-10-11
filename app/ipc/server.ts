@@ -1,19 +1,24 @@
 /* eslint-disable no-console */
 
 import { ipcMain } from 'electron';
-import { CHANNEL_NAME } from './constants';
-import { IpcMessage, PING_MESSAGE } from './types';
+import {
+  PING_CHANNEL,
+  GET_ALL_DATA_CHANNEL,
+  PingRequest,
+  GetAllDataRequest,
+} from './types';
+import { getAllData } from '../db';
 
-ipcMain.on(CHANNEL_NAME, (event, arg: IpcMessage) => {
-  switch (arg.type) {
-    case PING_MESSAGE:
-      console.log(arg.message);
-      event.sender.send(CHANNEL_NAME, {
-        type: PING_MESSAGE,
-        message: 'Hello from server',
-      });
-      break;
-    default:
-      console.log('Unknown message');
-  }
+ipcMain.on(PING_CHANNEL, (event, arg: PingRequest) => {
+  console.log(arg.message);
+  event.sender.send(PING_CHANNEL, {
+    message: 'Hello from server',
+  });
+});
+
+ipcMain.on(GET_ALL_DATA_CHANNEL, (event, _arg: GetAllDataRequest) => {
+  const data = getAllData();
+  event.sender.send(GET_ALL_DATA_CHANNEL, {
+    data,
+  });
 });

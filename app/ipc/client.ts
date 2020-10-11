@@ -1,13 +1,14 @@
 /* eslint-disable no-console,import/prefer-default-export */
-// @ts-ignore
 import { ipcRenderer } from 'electron';
-import { CHANNEL_NAME } from './constants';
-import { PING_MESSAGE } from './types';
+import { PING_CHANNEL, GET_ALL_DATA_CHANNEL } from './types';
 
-ipcRenderer.on(CHANNEL_NAME, (_event, arg) => {
+ipcRenderer.on(PING_CHANNEL, (_event, arg) => {
   console.log(arg); // prints "Hello World!"
 });
 
-export const sendPingMessage = (message: string) => {
-  ipcRenderer.send(CHANNEL_NAME, { type: PING_MESSAGE, message });
+export const sendPingRequest = (message: string) => {
+  ipcRenderer.send(PING_CHANNEL, { message });
+};
+export const sendGetAllDataRequest = () => {
+  ipcRenderer.send(GET_ALL_DATA_CHANNEL, {});
 };
