@@ -66,10 +66,15 @@ export enum WELocation {
   Trainyard = 'Trainyard',
 }
 
-export type Location = WELocation | KCLocation
+export type Location = WELocation | KCLocation;
+export type Season = 'Season 6';
+export type Split = number;
 
 export type MatchRecord = {
   id: number;
+  date: string;
+  season: Season;
+  split: Split;
   map: Map;
   legend: Legend;
   location: Location;

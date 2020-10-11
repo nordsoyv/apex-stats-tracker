@@ -1,35 +1,17 @@
-import { Legend, Location, MatchRecord, WELocation } from './types';
+import { MatchRecord } from './types';
+
+// const fs = require('fs');
+
+const dbData = require('./db.json');
 
 let id = 0;
 
-const createData = (
-  legend: Legend,
-  location: Location,
-  teamSize: number,
-  placement: number,
-  kills: number,
-  pointsGained: number,
-  rating: number
-): MatchRecord => {
-  return {
-    id: id++,
-    map: 'Worlds Edge',
-    legend,
-    location,
-    teamSize,
-    placement,
-    kills,
-    pointsGained,
-    rating,
-  };
-};
-
-const data = [
-  createData(Legend.Lifeline, WELocation.Geyser, 0, 7, 0, 0, 3078),
-  createData(Legend.Lifeline, WELocation.Countdown, 0, 17, 2, -4, 3074),
-  createData(Legend.Lifeline, WELocation.LavaFissure, 0, 4, 3, 61, 3135),
-];
+dbData.matches.forEach((match: MatchRecord) => {
+  if (match.id > id) {
+    id = match.id;
+  }
+});
 
 export const getAllData = () => {
-  return data;
+  return dbData.matches;
 };

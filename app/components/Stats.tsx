@@ -5,17 +5,21 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
+  TablePagination,
   TableRow,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ipcRenderer } from 'electron';
 import { GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
 import { MatchRecord } from '../db/types';
+import { TablePaginationActions } from './TablePaginationActions';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+    minHeight: 600,
   },
 });
 
@@ -23,15 +27,30 @@ export const Stats = () => {
   const [data, setData] = useState<MatchRecord[]>([]);
   useEffect(() => {
     ipcRenderer.on(GET_ALL_DATA_CHANNEL, (_event, arg: GetAllDataResponse) => {
-      setData(arg.data);
+      setData(arg.data.reverse());
     });
   }, [setData]);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: unknown) => {
+    // @ts-ignore
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
+            <TableCell>Date</TableCell>
             <TableCell>Map</TableCell>
             <TableCell>Legend</TableCell>
             <TableCell>Drop location</TableCell>
@@ -43,9 +62,13 @@ export const Stats = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((d, index) => {
+          {(rowsPerPage > 0
+            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : data
+          ).map((d) => {
             return (
-              <TableRow key={index}>
+              <TableRow key={d.id}>
+                <TableCell>{d.date}</TableCell>
                 <TableCell>{d.map}</TableCell>
                 <TableCell>{d.legend}</TableCell>
                 <TableCell>{d.location}</TableCell>
@@ -58,6 +81,24 @@ export const Stats = () => {
             );
           })}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              colSpan={3}
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: { 'aria-label': 'rows per page' },
+                native: true,
+              }}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );

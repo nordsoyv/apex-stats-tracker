@@ -8,9 +8,10 @@ body {
   position: relative;
   color: white;
   height: 100vh;
-  background-color: #4c3b3b;
+  background-color: #a4c9e2;
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
+  margin: 10px;
 }
 
 h2 {
