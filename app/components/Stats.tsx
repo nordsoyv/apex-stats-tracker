@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ipcRenderer } from 'electron';
-import { GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
+import { ADD_MATCH_CHANNEL, AddMatchResponse, GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
 import { MatchRecord } from '../db/types';
 import { TablePaginationActions } from './TablePaginationActions';
 
@@ -32,10 +32,16 @@ export const Stats = () => {
   const classes = useStyles();
   useEffect(() => {
     ipcRenderer.on(GET_ALL_DATA_CHANNEL, (_event, arg: GetAllDataResponse) => {
-      setData(arg.data.reverse());
+      console.log(arg);
+      setData(arg.matches.reverse());
     });
   }, [setData]);
 
+  useEffect(() => {
+    ipcRenderer.on(ADD_MATCH_CHANNEL, (_event, arg: AddMatchResponse) => {
+      setData(arg.matches.reverse());
+    });
+  });
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -64,10 +70,7 @@ export const Stats = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : data
-            ).map((d) => {
+            {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map((d) => {
               return (
                 <TableRow key={d.id}>
                   <TableCell>{d.date}</TableCell>
