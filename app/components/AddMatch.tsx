@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select } from '@material-ui/core';
-import { KCLocations, legends, MatchRecord } from '../db/types';
 import { ipcRenderer } from 'electron';
-import {
-  ADD_MATCH_CHANNEL,
-  AddMatchRequest,
-  AddMatchResponse,
-  GET_ALL_DATA_CHANNEL,
-  GetAllDataResponse
-} from '../ipc/types';
+import { KCLocations, legends } from '../db/types';
+import { ADD_MATCH_CHANNEL, AddMatchResponse, GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
 import { sendAddMatchRequest } from '../ipc/client';
 
 // console.log(KCLocations);
@@ -75,21 +69,20 @@ const getRankinPoints = (tier: string, placement: number, kills: number): number
       break;
   }
 
-  const score = kills * killPointsModifier + placementPoints - entryCost;
-  return score;
+  return kills * killPointsModifier + placementPoints - entryCost;
 };
 
-const locationMenuItems = [];
+const locationMenuItems: React.ComponentElement<any, any>[] = [];
 for (const loc of KCLocations.keys()) {
   locationMenuItems.push(<MenuItem value={loc}>{loc}</MenuItem>);
 }
 
-const legendsMenuItems = [];
+const legendsMenuItems: React.ComponentElement<any, any>[] = [];
 for (const loc of legends.keys()) {
   legendsMenuItems.push(<MenuItem value={loc}>{loc}</MenuItem>);
 }
 
-const range = (start, stop, step = 1) =>
+const range = (start: number, stop: number, step = 1) =>
   Array(Math.ceil((stop - start) / step))
     .fill(start)
     .map((x, y) => x + y * step);
@@ -98,7 +91,7 @@ export const AddMatch = () => {
   const [currentRank, setCurrentRank] = useState<number>(0);
   const [location, setLocation] = useState<string>('Airbase');
   const [legend, setLegend] = useState<string>('Lifeline');
-  const [placement, setPlacement] = useState<number>(1);
+  const [placement, setPlacement] = useState<number>(20);
   const [kills, setKills] = useState<number>(0);
   const [tier, setTier] = useState<string>('Silver');
   const [rankingPoints, setRankinPoints] = useState<number>(0);
@@ -107,12 +100,12 @@ export const AddMatch = () => {
     ipcRenderer.on(GET_ALL_DATA_CHANNEL, (_event, arg: GetAllDataResponse) => {
       setCurrentRank(arg.currentRating);
     });
-  }, );
+  });
   useEffect(() => {
     ipcRenderer.on(ADD_MATCH_CHANNEL, (_event, arg: AddMatchResponse) => {
       setCurrentRank(arg.currentRating);
     });
-  }, );
+  });
 
   useEffect(() => {
     const score = getRankinPoints(tier, placement, kills);
@@ -139,6 +132,8 @@ export const AddMatch = () => {
 
   const handleAddClick = () => {
     sendAddMatchRequest(location, legend, placement, kills, tier, rankingPoints);
+    setPlacement(20);
+    setKills(0);
   };
 
   return (
