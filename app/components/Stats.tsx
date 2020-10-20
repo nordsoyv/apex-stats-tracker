@@ -25,6 +25,39 @@ const useStyles = makeStyles({
   },
 });
 
+const StatsHeader = () => {
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell>Date</TableCell>
+        <TableCell>Map</TableCell>
+        <TableCell>Legend</TableCell>
+        <TableCell>Drop location</TableCell>
+        <TableCell>Team size</TableCell>
+        <TableCell>Placement</TableCell>
+        <TableCell>Kills/Assists</TableCell>
+        <TableCell>Points gained</TableCell>
+        <TableCell>Rating</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
+const StatsRow = ({ record }: { record: MatchRecord }) => {
+  return (
+    <TableRow>
+      <TableCell>{record.date}</TableCell>
+      <TableCell>{record.map}</TableCell>
+      <TableCell>{record.legend}</TableCell>
+      <TableCell>{record.location}</TableCell>
+      <TableCell>{record.teamSize}</TableCell>
+      <TableCell>{record.placement}</TableCell>
+      <TableCell>{record.kills}</TableCell>
+      <TableCell>{record.pointsGained}</TableCell>
+      <TableCell>{record.rating}</TableCell>
+    </TableRow>
+  );
+};
 export const Stats = () => {
   const [data, setData] = useState<MatchRecord[]>([]);
   const [page, setPage] = React.useState(0);
@@ -56,34 +89,10 @@ export const Stats = () => {
     <Grid item xs={12}>
       <TableContainer component={Paper}>
         <Table className={classes.table} size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Map</TableCell>
-              <TableCell>Legend</TableCell>
-              <TableCell>Drop location</TableCell>
-              <TableCell>Team size</TableCell>
-              <TableCell>Placement</TableCell>
-              <TableCell>Kills/Assists</TableCell>
-              <TableCell>Points gained</TableCell>
-              <TableCell>Rating</TableCell>
-            </TableRow>
-          </TableHead>
+          <StatsHeader />
           <TableBody>
             {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map((d) => {
-              return (
-                <TableRow key={d.id}>
-                  <TableCell>{d.date}</TableCell>
-                  <TableCell>{d.map}</TableCell>
-                  <TableCell>{d.legend}</TableCell>
-                  <TableCell>{d.location}</TableCell>
-                  <TableCell>{d.teamSize}</TableCell>
-                  <TableCell>{d.placement}</TableCell>
-                  <TableCell>{d.kills}</TableCell>
-                  <TableCell>{d.pointsGained}</TableCell>
-                  <TableCell>{d.rating}</TableCell>
-                </TableRow>
-              );
+              return <StatsRow record={d} key={d.id} />;
             })}
           </TableBody>
           <TableFooter>
