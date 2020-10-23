@@ -1416,6 +1416,34 @@
       "pointsGained": 21,
       "teamSize": 0,
       "date": "21.10.2020"
+    },
+    {
+      "rating": 2841,
+      "id": 107,
+      "split": 2,
+      "season": "Season 6",
+      "kills": 2,
+      "legend": "Wraith",
+      "location": "The pit",
+      "map": "Kings Canyon",
+      "placement": 10,
+      "pointsGained": 10,
+      "teamSize": 0,
+      "date": "23.10.2020"
+    },
+    {
+      "rating": 3042,
+      "id": 108,
+      "split": 2,
+      "season": "Season 6",
+      "kills": 5,
+      "legend": "Lifeline",
+      "location": "Runoff",
+      "map": "Kings Canyon",
+      "placement": 1,
+      "pointsGained": 201,
+      "teamSize": 0,
+      "date": "23.10.2020"
     }
   ]
 }
