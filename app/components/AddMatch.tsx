@@ -90,7 +90,7 @@ export const AddMatch = () => {
   const [legend, setLegend] = useState<string>('Lifeline');
   const [placement, setPlacement] = useState<number>(20);
   const [kills, setKills] = useState<number>(0);
-  const [tier, setTier] = useState<string>('Silver');
+  const [tier, setTier] = useState<string>('Gold');
   const [rankingPoints, setRankinPoints] = useState<number>(0);
 
   useEffect(() => {
@@ -98,21 +98,21 @@ export const AddMatch = () => {
     setRankinPoints(score);
   }, [tier, placement, kills]);
 
-  const handleChangePlacement = (event: React.ChangeEvent<{ value: number }>) => {
-    setPlacement(event.target.value);
+  const handleChangePlacement = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
+    setPlacement(event.target.value as number);
   };
-  const handleChangeKills = (event: React.ChangeEvent<{ value: number }>) => {
-    setKills(event.target.value);
+  const handleChangeKills = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
+    setKills(event.target.value as number);
   };
-  const handleChangeTier = (event: React.ChangeEvent<{ value: string }>) => {
+  const handleChangeTier = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
     setTier(event.target.value as string);
   };
 
-  const handleChangeLocation = (event: React.ChangeEvent<{ value: string }>) => {
+  const handleChangeLocation = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
     setLocation(event.target.value as string);
   };
 
-  const handleChangeLegend = (event: React.ChangeEvent<{ value: string }>) => {
+  const handleChangeLegend = (event: React.ChangeEvent<{ value: unknown; name?: string }>) => {
     setLegend(event.target.value as string);
   };
 

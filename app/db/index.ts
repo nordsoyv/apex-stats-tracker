@@ -16,7 +16,7 @@ dbData.matches.forEach((match: MatchRecord) => {
 });
 
 export const getAllData = () => {
-  return { matches: [...dbData.matches.reverse()], currentRating };
+  return { matches: [...dbData.matches].reverse(), currentRating };
 };
 
 export const addMatch = (match: AddMatchData): { matches: MatchRecord[]; currentRating: number } => {
@@ -38,7 +38,7 @@ export const addMatch = (match: AddMatchData): { matches: MatchRecord[]; current
   };
   dbData.matches.push(matchRecord);
   currentRating += match.rankingPoints;
-  fs.writeFile('./app/db/db.json', JSON.stringify(dbData), () => {});
+  fs.writeFile('./app/db/db.json', JSON.stringify(dbData, null, 2), () => {});
 
   return getAllData();
 };
