@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { sendGetAllDataRequest } from '../ipc/client';
+/* eslint-disable import/prefer-default-export */
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import { Stats } from '../components/Stats';
 import { AddMatch } from '../components/AddMatch';
-import {Grid} from "@material-ui/core";
+import { MatchDataWrapper } from './MatchDataContext';
 
 export function App() {
-  useEffect(() => {
-    sendGetAllDataRequest();
-  },[] );
   return (
-    <Grid container spacing={3}>
-      <AddMatch />
-      <Stats />
-    </Grid>
+    <MatchDataWrapper>
+      <Grid container spacing={3}>
+        <AddMatch />
+        <Stats />
+      </Grid>
+    </MatchDataWrapper>
   );
 }

@@ -85,3 +85,12 @@ export type MatchRecord = {
   pointsGained: number;
   rating: number;
 };
+
+export type AddMatchData = {
+  location: string;
+  legend: string;
+  placement: number;
+  kills: number;
+  tier: string;
+  rankingPoints: number;
+};

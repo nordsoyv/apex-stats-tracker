@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable import/prefer-default-export,@typescript-eslint/ban-ts-comment */
+import React, { useContext } from 'react';
 import {
   Grid,
   Paper,
@@ -12,10 +13,9 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ipcRenderer } from 'electron';
-import { ADD_MATCH_CHANNEL, AddMatchResponse, GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
 import { MatchRecord } from '../db/types';
 import { TablePaginationActions } from './TablePaginationActions';
+import { MatchDataContext } from '../containers/MatchDataContext';
 
 const useStyles = makeStyles({
   table: {
@@ -58,23 +58,13 @@ const StatsRow = ({ record }: { record: MatchRecord }) => {
     </TableRow>
   );
 };
+
 export const Stats = () => {
-  const [data, setData] = useState<MatchRecord[]>([]);
+  const { matches } = useContext(MatchDataContext);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const classes = useStyles();
-  useEffect(() => {
-    ipcRenderer.on(GET_ALL_DATA_CHANNEL, (_event, arg: GetAllDataResponse) => {
-      console.log(arg);
-      setData(arg.matches.reverse());
-    });
-  }, [setData]);
 
-  useEffect(() => {
-    ipcRenderer.on(ADD_MATCH_CHANNEL, (_event, arg: AddMatchResponse) => {
-      setData(arg.matches.reverse());
-    });
-  });
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -91,16 +81,18 @@ export const Stats = () => {
         <Table className={classes.table} size="small">
           <StatsHeader />
           <TableBody>
-            {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map((d) => {
-              return <StatsRow record={d} key={d.id} />;
-            })}
+            {(rowsPerPage > 0 ? matches.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : matches).map(
+              (d) => {
+                return <StatsRow record={d} key={d.id} />;
+              }
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 colSpan={3}
-                count={data.length}
+                count={matches.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{

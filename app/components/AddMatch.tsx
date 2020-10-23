@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable */
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select } from '@material-ui/core';
-import { ipcRenderer } from 'electron';
 import { KCLocations, legends } from '../db/types';
-import { ADD_MATCH_CHANNEL, AddMatchResponse, GET_ALL_DATA_CHANNEL, GetAllDataResponse } from '../ipc/types';
-import { sendAddMatchRequest } from '../ipc/client';
-
-// console.log(KCLocations);
+import { MatchDataContext } from '../containers/MatchDataContext';
 
 const getRankinPoints = (tier: string, placement: number, kills: number): number => {
   let entryCost = 0;
@@ -88,24 +85,13 @@ const range = (start: number, stop: number, step = 1) =>
     .map((x, y) => x + y * step);
 
 export const AddMatch = () => {
-  const [currentRank, setCurrentRank] = useState<number>(0);
+  const { currentRating, addMatch } = useContext(MatchDataContext);
   const [location, setLocation] = useState<string>('Airbase');
   const [legend, setLegend] = useState<string>('Lifeline');
   const [placement, setPlacement] = useState<number>(20);
   const [kills, setKills] = useState<number>(0);
   const [tier, setTier] = useState<string>('Silver');
   const [rankingPoints, setRankinPoints] = useState<number>(0);
-
-  useEffect(() => {
-    ipcRenderer.on(GET_ALL_DATA_CHANNEL, (_event, arg: GetAllDataResponse) => {
-      setCurrentRank(arg.currentRating);
-    });
-  });
-  useEffect(() => {
-    ipcRenderer.on(ADD_MATCH_CHANNEL, (_event, arg: AddMatchResponse) => {
-      setCurrentRank(arg.currentRating);
-    });
-  });
 
   useEffect(() => {
     const score = getRankinPoints(tier, placement, kills);
@@ -131,7 +117,7 @@ export const AddMatch = () => {
   };
 
   const handleAddClick = () => {
-    sendAddMatchRequest(location, legend, placement, kills, tier, rankingPoints);
+    addMatch({ location, legend, placement, kills, tier, rankingPoints });
     setPlacement(20);
     setKills(0);
   };
@@ -211,7 +197,7 @@ export const AddMatch = () => {
       </Grid>
       <Grid item xs={1}>
         <Paper>
-          <Box style={{ padding: 5, height: 50 }}>New rating: {currentRank + rankingPoints}</Box>
+          <Box style={{ padding: 5, height: 50 }}>New rating: {currentRating + rankingPoints}</Box>
         </Paper>
       </Grid>
       <Grid item xs={1}>

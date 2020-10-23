@@ -1,10 +1,10 @@
-import { MatchRecord } from './types';
-import { AddMatchRequest } from '../ipc/types';
+/* eslint-disable no-plusplus */
+import { AddMatchData, MatchRecord } from './types';
 
 const fs = require('fs');
 
-const dbData = require('./db.json');
-
+const dbDataString = fs.readFileSync('./app/db/db.json');
+const dbData = JSON.parse(dbDataString);
 let id = 0;
 let currentRating = 0;
 
@@ -16,13 +16,12 @@ dbData.matches.forEach((match: MatchRecord) => {
 });
 
 export const getAllData = () => {
-  return { matches: dbData.matches, currentRating };
+  return { matches: [...dbData.matches.reverse()], currentRating };
 };
 
-export const addMatch = (match: AddMatchRequest) => {
+export const addMatch = (match: AddMatchData): { matches: MatchRecord[]; currentRating: number } => {
   const currentDate = new Date();
   const date = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`;
-  // console.log(date);
   const matchRecord: MatchRecord = {
     rating: match.rankingPoints + currentRating,
     id: ++id,
@@ -41,5 +40,5 @@ export const addMatch = (match: AddMatchRequest) => {
   currentRating += match.rankingPoints;
   fs.writeFile('./app/db/db.json', JSON.stringify(dbData), () => {});
 
-  console.log(matchRecord);
+  return getAllData();
 };
