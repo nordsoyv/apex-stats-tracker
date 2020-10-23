@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export,@typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useContext } from 'react';
 import {
   Grid,
@@ -59,7 +59,7 @@ const StatsRow = ({ record }: { record: MatchRecord }) => {
   );
 };
 
-export const Stats = () => {
+export const MatchTable = () => {
   const { matches } = useContext(MatchDataContext);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

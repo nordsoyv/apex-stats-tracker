@@ -99,7 +99,11 @@ export const AddMatch = () => {
               <InputLabel id="placement-label">Placement</InputLabel>
               <Select labelId="placement-label" id="asdf" value={placement} onChange={handleChangePlacement}>
                 {range(1, 21).map((num: number) => {
-                  return <MenuItem value={num}>{num}</MenuItem>;
+                  return (
+                    <MenuItem key={num} value={num}>
+                      {num}
+                    </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
@@ -113,7 +117,11 @@ export const AddMatch = () => {
               <InputLabel id="kills-label">Kills</InputLabel>
               <Select labelId="kills-label" id="aasdfsdf" value={kills} onChange={handleChangeKills}>
                 {range(0, 6).map((num: number) => {
-                  return <MenuItem value={num}>{num}</MenuItem>;
+                  return (
+                    <MenuItem key={num} value={num}>
+                      {num}
+                    </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
