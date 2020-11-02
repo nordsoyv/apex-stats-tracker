@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select } from '@material-ui/core';
-import { KCLocations, legends } from '../db/types';
+import { legends, OlympusLocations } from '../db/types';
 import { MatchDataContext } from '../containers/MatchDataContext';
 import { useRankingPoint } from './useRankingPoints';
 
 const locationMenuItems: React.ComponentElement<any, any>[] = [];
-for (const loc of KCLocations.keys()) {
+for (const loc of OlympusLocations.keys()) {
   locationMenuItems.push(<MenuItem value={loc}>{loc}</MenuItem>);
 }
 
