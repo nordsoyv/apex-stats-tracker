@@ -1444,6 +1444,48 @@
       "pointsGained": 201,
       "teamSize": 0,
       "date": "23.10.2020"
+    },
+    {
+      "rating": 3028,
+      "id": 109,
+      "split": 2,
+      "season": "Season 6",
+      "kills": 1,
+      "legend": "Lifeline",
+      "location": "Swamps",
+      "map": "Kings Canyon",
+      "placement": 14,
+      "pointsGained": -14,
+      "teamSize": 0,
+      "date": "25.10.2020"
+    },
+    {
+      "rating": 3074,
+      "id": 110,
+      "split": 2,
+      "season": "Season 6",
+      "kills": 2,
+      "legend": "Lifeline",
+      "location": "Labs",
+      "map": "Kings Canyon",
+      "placement": 4,
+      "pointsGained": 46,
+      "teamSize": 0,
+      "date": "25.10.2020"
+    },
+    {
+      "rating": 3060,
+      "id": 111,
+      "split": 2,
+      "season": "Season 6",
+      "kills": 0,
+      "legend": "Pathfinder",
+      "location": "Capacitor",
+      "map": "Kings Canyon",
+      "placement": 9,
+      "pointsGained": -14,
+      "teamSize": 0,
+      "date": "25.10.2020"
     }
   ]
 }
