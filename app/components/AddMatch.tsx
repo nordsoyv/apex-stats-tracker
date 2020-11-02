@@ -21,7 +21,7 @@ const range = (start: number, stop: number, step = 1) =>
 
 export const AddMatch = () => {
   const { currentRating, addMatch } = useContext(MatchDataContext);
-  const [location, setLocation] = useState<string>('Airbase');
+  const [location, setLocation] = useState<string>('Oasis');
   const [legend, setLegend] = useState<string>('Lifeline');
   const [placement, setPlacement] = useState<number>(20);
   const [kills, setKills] = useState<number>(0);
