@@ -1,4 +1,4 @@
-export type Map = 'Worlds Edge' | 'Kings Canyon';
+export type Map = 'Worlds Edge' | 'Kings Canyon' | 'Olympus';
 
 export const legends = new Set([
   'Bangalore',
@@ -67,8 +67,27 @@ export const WELocations = new Set([
   'Trainyard',
 ]);
 
-export const Locations = new Set([...WELocations, ...KCLocations]);
-export type Season = 'Season 6';
+export const OlympusLocations = new Set([
+  'Oasis',
+  'Carrier',
+  'Docks',
+  'Power grid',
+  'Rift',
+  'Energy depot',
+  'Gardens',
+  'Grow towers',
+  'Hammond labs',
+  'Estates',
+  'Elysium',
+  'Hydroponics',
+  'Bonsai plaza',
+  'Solar array',
+  'Turbine',
+  'Orbital cannon',
+]);
+
+export const Locations = new Set([...WELocations, ...KCLocations, ...OlympusLocations]);
+export type Season = 'Season 7';
 export type Split = number;
 
 export type MatchRecord = {
